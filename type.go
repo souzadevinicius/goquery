@@ -5,7 +5,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-
 	"golang.org/x/net/html"
 )
 
@@ -29,9 +28,15 @@ func NewDocumentFromNode(root *html.Node) *Document {
 // NewDocument is a Document constructor that takes a string URL as argument.
 // It loads the specified document, parses it, and stores the root Document
 // node, ready to be manipulated.
-func NewDocument(url string) (*Document, error) {
+func NewDocument(url string, customHttp *HttpClient) (*Document, error) {
 	// Load the URL
-	res, e := http.Get(url)
+	var res *http.Response
+    var e error
+    if (customHttp != nil){
+        res, e = customHttp.Get(url)
+    }else{
+	    res, e = http.Get(url)
+    }
 	if e != nil {
 		return nil, e
 	}
