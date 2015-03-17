@@ -2,10 +2,10 @@ package goquery
 
 import (
 	"errors"
+	"golang.org/x/net/html"
 	"io"
 	"net/http"
 	"net/url"
-	"golang.org/x/net/html"
 )
 
 // Document represents an HTML document to be manipulated. Unlike jQuery, which
@@ -31,12 +31,12 @@ func NewDocumentFromNode(root *html.Node) *Document {
 func NewDocument(url string, customHttp *HttpClient) (*Document, error) {
 	// Load the URL
 	var res *http.Response
-    var e error
-    if (customHttp != nil){
-        res, e = customHttp.Get(url)
-    }else{
-	    res, e = http.Get(url)
-    }
+	var e error
+	if customHttp != nil {
+		res, e = customHttp.Get(url)
+	} else {
+		res, e = http.Get(url)
+	}
 	if e != nil {
 		return nil, e
 	}

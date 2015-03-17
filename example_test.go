@@ -12,7 +12,7 @@ import (
 // This example scrapes the reviews shown on the home page of metalsucks.net.
 func ExampleScrape_MetalSucks() {
 	// Load the HTML document (in real use, the type would be *goquery.Document)
-	doc, err := NewDocument("http://metalsucks.net",nil)
+	doc, err := NewDocument("http://metalsucks.net", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
